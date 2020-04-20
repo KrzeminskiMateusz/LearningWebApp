@@ -1,0 +1,50 @@
+﻿@page
+@model LearningRazorPages.Pages.Tests.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Test</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Test.ID" />
+            <div class="form-group">
+                <label asp-for="Test.testName" class="control-label"></label>
+                <input asp-for="Test.testName" class="form-control" />
+                <span asp-validation-for="Test.testName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Test.testTimeSpan" class="control-label"></label>
+                <input asp-for="Test.testTimeSpan" class="form-control" />
+                <span asp-validation-for="Test.testTimeSpan" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Test.testBool" /> @Html.DisplayNameFor(model => model.Test.testBool)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Test.testLong" class="control-label"></label>
+                <input asp-for="Test.testLong" class="form-control" />
+                <span asp-validation-for="Test.testLong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

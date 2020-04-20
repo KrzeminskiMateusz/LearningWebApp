@@ -1,0 +1,15 @@
+﻿@page "/Inherit"
+@inherits BlazorRocksBase
+
+<h1>@Text</h1>
+
+<p>@_myMarkup</p>
+
+@_myMarkup
+
+@((MarkupString)_myMarkup)
+
+@code{
+    private string _myMarkup =
+       "<p class='markup'>This is a <em>markup string</em>.</p>";
+}

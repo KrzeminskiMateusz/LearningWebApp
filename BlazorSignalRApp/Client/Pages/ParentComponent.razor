@@ -1,0 +1,38 @@
+﻿@page "/ParentComponent"
+
+<h3>Parent-Child example</h3>
+
+<p>ParentYear: @ParentYear</p>
+
+
+<ChildComponent Title="Panel Title form Parent" @bind-Year="ParentYear" OnClickCallback="@ShowMessage">
+    Content of the child component is supplied
+    by the parent component.
+</ChildComponent>
+
+<button class="btn btn-primary" @onclick="ChangeTheYear">
+    Change Year to 1986
+</button>
+
+<p>------------------------------------------------------------------</p>
+
+
+<p><b>@_messageText</b></p>
+
+@code{
+    [Parameter]
+    public string ParentYear { get; set; } = "1978";
+
+    private void ChangeTheYear()
+    {
+        ParentYear = "1986";
+    }
+
+    private string _messageText;
+
+    private void ShowMessage(MouseEventArgs e)
+    {
+        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+    }
+}
+

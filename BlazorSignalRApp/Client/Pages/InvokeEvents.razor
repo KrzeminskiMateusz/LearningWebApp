@@ -1,0 +1,87 @@
+﻿@page "/Event"
+
+@inject NotifierService Notifier
+@implements IDisposable
+
+<p>Last update: @_lastNotification.key = @_lastNotification.value</p>
+
+<div class="panel panel-default">
+    Key: <input type="text" @bind="key" />
+</div>
+<div class="panel panel-default">
+    Value: <input type="number" @bind="value" />
+</div>
+
+<br />
+
+<div class="panel panel-default">
+    MyKey: <input type="text" @bind="myKey" />
+</div>
+<div class="panel panel-default">
+    MyValue: <input type="number" @bind="myValue" />
+</div>
+
+<br />
+
+<button type="submit" @onclick="Click">Event!</button>
+
+<br />
+
+<p>Last my update: @myProp.myKey = @myProp.myValue</p>
+
+<br />
+
+<button type="submit" @onclick="MyClick">My Event!</button>
+
+@code{
+    private (string key, int value) _lastNotification;
+    private (string myKey, int myValue) myProp;
+
+    private string key;
+    private int value;
+
+    private string myKey;
+    private int myValue;
+
+    protected override void OnInitialized()
+    {
+        Notifier.Notify += OnNotify;
+        Notifier.Notify += OnMyProp;
+    }
+
+    public async Task OnNotify(string key, int value)
+    {
+        await InvokeAsync(() =>
+        {
+            _lastNotification = (key, value);
+            StateHasChanged();
+        });
+
+
+    }
+
+    public async Task OnMyProp(string key, int value)
+    {
+        await InvokeAsync(() =>
+        {
+            myProp = (key, value);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        Notifier.Notify -= OnNotify;
+        Notifier.Notify -= OnMyProp;
+    }
+
+    private async void Click()
+    {
+        await Notifier.Update(key, value);
+    }
+
+    private async void MyClick()
+    {
+        await Notifier.Update(myKey, myValue);
+    }
+}
