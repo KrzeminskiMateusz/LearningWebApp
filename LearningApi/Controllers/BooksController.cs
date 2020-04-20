@@ -22,6 +22,8 @@ namespace LearningApi.Controllers
         [HttpGet]
         public ActionResult<List<Book>> Get()
         {
+            string sampleString = "SampleString";
+
             return _bookService.Get();
             //return Ok(_bookService.Get());
             //return Content("An API listing authors of docs.asp.net.");
